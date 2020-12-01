@@ -11,6 +11,7 @@ import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.Format;
+import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.Player.EventListener;
 import com.google.android.exoplayer2.SimpleExoPlayer;
@@ -126,18 +127,18 @@ final class VideoPlayer {
         return new SsMediaSource.Factory(
                 new DefaultSsChunkSource.Factory(mediaDataSourceFactory),
                 new DefaultDataSourceFactory(context, null, mediaDataSourceFactory))
-            .createMediaSource(uri);
+            .createMediaSource(MediaItem.fromUri(uri));
       case C.TYPE_DASH:
         return new DashMediaSource.Factory(
                 new DefaultDashChunkSource.Factory(mediaDataSourceFactory),
                 new DefaultDataSourceFactory(context, null, mediaDataSourceFactory))
-            .createMediaSource(uri);
+            .createMediaSource(MediaItem.fromUri(uri));
       case C.TYPE_HLS:
         return new HlsMediaSource.Factory(mediaDataSourceFactory).createMediaSource(uri);
       case C.TYPE_OTHER:
         return new ExtractorMediaSource.Factory(mediaDataSourceFactory)
             .setExtractorsFactory(new DefaultExtractorsFactory().setConstantBitrateSeekingEnabled(true))
-            .createMediaSource(uri);
+            .createMediaSource(MediaItem.fromUri(uri));
       default:
         {
           throw new IllegalStateException("Unsupported type: " + type);
