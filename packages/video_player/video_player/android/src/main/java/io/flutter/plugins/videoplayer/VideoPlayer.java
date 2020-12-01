@@ -165,11 +165,11 @@ final class VideoPlayer {
     exoPlayer.setVideoSurface(surface);
     setAudioAttributes(exoPlayer);
 
-    exoPlayer.addListener(
+   exoPlayer.addListener(
         new EventListener() {
 
           @Override
-          public void onPlayerStateChanged(final boolean playWhenReady, final int playbackState) {
+          public void onPlaybackStateChanged(final int playbackState) {
             if (playbackState == Player.STATE_BUFFERING) {
               sendBufferingUpdate();
             } else if (playbackState == Player.STATE_READY) {
